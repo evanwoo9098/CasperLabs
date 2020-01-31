@@ -47,6 +47,20 @@ query-state \
 -k $VALIDATOR_ID -p "counter/count"
 ```
 
+#### deploy stored contract
+
+```
+casperlabs-client \
+    --host localhost \
+    deploy \
+    --from $VALIDATOR_ID \
+    --session-hash "hash" \
+    --session-args '[{"name": "method", "value": {"string_value": "inc"}}]'
+    --payment $TEST_CONTRACT_DIR/standard_payment.wasm \
+    --payment-args '[{"name":"amount", "value": {"big_int": {"value":"100000000", "bit_width": 512}}}]' \
+    --private-key $KEY_DIR/validator-private.pem
+```
+
 ### Query examples
 
 query balance
