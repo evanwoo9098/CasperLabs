@@ -68,12 +68,25 @@ query balance
 casperlabs-client --host localhost balance -b 'block hash' -a 'public key of the account'
 ```
 
-transfer from account to account
+### Transfer from account to account
+
 ```console
 casperlabs-client --host localhost \
 transfer \
 --amount 100000000 \
 --payment-amount 100000000 \
---target-account 'account public key in base64 form' \
+--target-account '3b6ebe77cff843183961bc5023b381939645e0f33d559c3f09a0abafcabedcbe' \
 --private-key $KEY_DIR/validator-private.pem
+```
+
+```console
+casperlabs-client \
+    --host localhost \
+    deploy \
+    --from $VALIDATOR_ID \
+    --session $TEST_CONTRACT_DIR/transfer_to_account.wasm \
+    --session-args '[{"name": "target_address", "value": {"bytes_value": "6e88ed546646f6613224351c1695bd583dad138999b397bffa4d541fe99ebc59"}}, {"name": "amount", "value": {"long_value": 100000000}}]' \
+    --payment $TEST_CONTRACT_DIR/standard_payment.wasm \
+    --payment-args '[{"name":"amount", "value": {"big_int": {"value":"100000000", "bit_width": 512}}}]' \
+    --private-key $KEY_DIR/validator-private.pem
 ```
