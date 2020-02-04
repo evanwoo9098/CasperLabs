@@ -87,6 +87,33 @@ casperlabs-client \
     --session $TEST_CONTRACT_DIR/transfer_to_account.wasm \
     --session-args '[{"name": "target_address", "value": {"bytes_value": "6e88ed546646f6613224351c1695bd583dad138999b397bffa4d541fe99ebc59"}}, {"name": "amount", "value": {"long_value": 100000000}}]' \
     --payment $TEST_CONTRACT_DIR/standard_payment.wasm \
-    --payment-args '[{"name":"amount", "value": {"big_int": {"value":"100000000", "bit_width": 512}}}]' \
+    --payment-args '[{"name":"amount", "value": {"big_int": {"value":"1000000", "bit_width": 512}}}]' \
     --private-key $KEY_DIR/validator-private.pem
 ```
+
+### Bond, Unbond
+
+#### bond
+```
+casperlabs-client \
+    --host localhost \
+    deploy \
+    --from $VALIDATOR_ID \
+    --session $TEST_CONTRACT_DIR/bonding.wasm \
+    --session-args '[{"name": "amount", "value": {"long_value": 1000000}}]' \
+    --payment $TEST_CONTRACT_DIR/standard_payment.wasm \
+    --payment-args '[{"name":"amount", "value": {"big_int": {"value":"20000000", "bit_width": 512}}}]' \
+    --private-key .accounts/account1/validator-private.pem
+```
+
+#### unbond
+
+casperlabs-client \
+    --host localhost \
+    deploy \
+    --from $VALIDATOR_ID \
+    --session $TEST_CONTRACT_DIR/unbonding.wasm \
+    --session-args '[{"name": "amount", "value": {"long_value": 1000000}}]' \
+    --payment $TEST_CONTRACT_DIR/standard_payment.wasm \
+    --payment-args '[{"name":"amount", "value": {"big_int": {"value":"20000000", "bit_width": 512}}}]' \
+    --private-key .accounts/account1/validator-private.pem
